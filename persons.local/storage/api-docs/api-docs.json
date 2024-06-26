@@ -1,0 +1,139 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Authentication enpoint title",
+        "description": "Authentication enpoint description",
+        "contact": {
+            "email": ""
+        },
+        "license": {
+            "name": "",
+            "url": ""
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/auth": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Autentificate a new user and return user tocken with one Of examples",
+                "operationId": "a303d65cb978a42c9a61aef5320cd5e4",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "test@gmail.com",
+                                    "password": "password"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/AuthSucceeded"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/AuthFailed"
+                                        }
+                                    ]
+                                },
+                                "examples": {
+                                    "AuthSucceeded": {
+                                        "summary": "An result token.",
+                                        "value": {
+                                            "access_token": "ey76Fdt5pRsOMoJ27f7AOiEjj66HYEZB"
+                                        }
+                                    },
+                                    "AuthFailed": {
+                                        "summary": "Login failed",
+                                        "value": {
+                                            "message": "Invalid Credentials"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Message": {
+                "title": "Message Schema",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Token": {
+                "title": "Token Schema",
+                "properties": {
+                    "data": {
+                        "properties": {
+                            "token": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthSucceeded": {
+                "title": "Sample schema for using references",
+                "properties": {
+                    "data": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthFailed": {
+                "title": "Sample schema for using references",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "Everything about Authentication",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": ""
+            }
+        }
+    ],
+    "externalDocs": {
+        "description": "Find out more about Swagger and OpenApi",
+        "url": "https://swagger.io"
+    }
+}
